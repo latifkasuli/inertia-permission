@@ -33,7 +33,13 @@ defineProps(["roles"]);
                         <TableRow v-for="role in roles" :key="role.id" class="border-b">
                             <table-data-cell>{{ role.id }}</table-data-cell>
                             <table-data-cell>{{ role.name }}</table-data-cell>
-                            <table-data-cell>Edit/Delete</table-data-cell>
+                            <table-data-cell class="space-x-4">
+                                <Link :href="route('roles.edit', role.id)" class="text-green-400 hover:text-green-600">Edit
+                                </Link>
+                                <Link :href="route('roles.destroy', role.id)" method="DELETE" as="button"
+                                    class="text-red-400 hover:text-red-600">Delete
+                                </Link>
+                            </table-data-cell>
                         </TableRow>
                     </template>
                 </Table>
