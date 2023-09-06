@@ -6,54 +6,41 @@ import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 
-const props = defineProps({
-    permission: {
-        type: Object,
-        required: true,
-    },
-});
-
 const form = useForm({
-    name: props.permission.name,
+    title: "",
 });
 </script>
 
 <template>
-    <Head title="Update Permission" />
+    <Head title="Create New Post" />
 
     <AdminLayout>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
             <div class="flex justify-between">
                 <Link
-                    :href="route('permissions.index')"
+                    :href="route('posts.index')"
                     class="px-3 py-2 text-white font-semibold bg-indigo-500 hover:bg-indigo-700 rounded"
+                    >Back</Link
                 >
-                    Back
-                </Link>
             </div>
             <div
-                class="mt-6 max-w-md mx-auto w-full sm:max-w-md px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg"
+                class="mt-6 max-w-6xl mx-auto w-full sm:max-w-6xl px-6 py-4 bg-white dark:bg-gray-800 shadow-md sm:rounded-lg"
             >
-                <form
-                    @submit.prevent="
-                        ($event) =>
-                            form.put(route('permissions.update', permission.id))
-                    "
-                >
+                <form @submit.prevent="form.post(route('posts.store'))">
                     <div>
-                        <InputLabel for="name" value="Permission Name" />
+                        <InputLabel for="title" value="Title" />
 
                         <TextInput
-                            id="name"
+                            id="title"
                             type="text"
                             class="mt-1 block w-full"
-                            v-model="form.name"
+                            v-model="form.title"
                             required
                             autofocus
                             autocomplete="off"
                         />
 
-                        <InputError class="mt-2" :message="form.errors.name" />
+                        <InputError class="mt-2" :message="form.errors.title" />
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
@@ -62,7 +49,7 @@ const form = useForm({
                             :class="{ 'opacity-25': form.processing }"
                             :disabled="form.processing"
                         >
-                            Update
+                            Save Post
                         </PrimaryButton>
                     </div>
                 </form>
